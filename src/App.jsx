@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { CloudSun } from 'lucide-react';
+import { CloudSun, MapPin } from 'lucide-react';
 
 function App() {
   const [cidade, setCidade] = useState('');
@@ -30,18 +30,48 @@ function App() {
   return (
     <>
       <div className="container">
-        <content>
+        <div className="content">
           <header>
-            <h1> <CloudSun color="white" size={48} />
-              Consulta de clima </h1>
-            <p> Exemplo de consumo de API com react</p>
+            <h1>
+              <CloudSun color="white" size={48} />
+              Consulta de Clima
+            </h1>
+            <p>Exemplo de consumo de API com React</p>
           </header>
+           {/* Caixa e Busca */}
           <div className="busca-box">
             <div className="busca-container">
-              <input type="text" />
-              <button></button></div>
+              <input 
+                type="text"
+                placeholder="Digite o nome da cidade.."
+              />
+              <button>Buscar</button>
+            </div>
           </div>
-        </content>
+
+          {/* Resultado do Clima */}
+          <div id="card-resultado">
+            <div id="cidade-info">
+              <div id="cidade-nome">
+                <MapPin style={{color: '#550808ff'}} size={48}/>
+                Campinas,BR
+              </div>
+              <p id="cidade-desc">
+                Nublado
+              </p>
+            </div>
+            {/* Temperatura Principal */}
+            <div id="temperatura-box">
+              <div id="temp-valor">21°C</div>
+              <div id="temp-sens">
+                Sensação Térmica: 21°C
+              </div>
+            </div>
+          </div>
+         
+         
+          
+        </div>
       </div>
     </>
   )
