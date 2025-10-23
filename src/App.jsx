@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { CloudSun, MapPin } from 'lucide-react';
+import { CloudSun, MapPinned, Thermometer, Droplet, Wind } from 'lucide-react';
 
 function App() {
   const [cidade, setCidade] = useState('');
@@ -19,12 +19,24 @@ function App() {
     setCarregando(true);
     setErro('');
 
+    // Try Executa os comandos
     try{
+      const API_KEY = "";
+      const url = "";
+      const resposta = await fetch(url);
+
+      if(!resposta.ok){
+        throw new Error('Cidade não encontrada');
+      }
+
+      const dados = await resposta.json();
+      setClima(dados);
 
     }catch (error){
-
+      setErro(error.message);
+      setClima(null);
     }finally{
-      
+      setCarregando(false);
     }
   }
   return (
@@ -38,7 +50,8 @@ function App() {
             </h1>
             <p>Exemplo de consumo de API com React</p>
           </header>
-           {/* Caixa e Busca */}
+          
+          {/* Caixa de Busca */}
           <div className="busca-box">
             <div className="busca-container">
               <input 
@@ -53,24 +66,65 @@ function App() {
           <div id="card-resultado">
             <div id="cidade-info">
               <div id="cidade-nome">
-                <MapPin style={{color: '#550808ff'}} size={48}/>
-                Campinas,BR
+                <MapPinned style={{color: '#550808ff'}} size={48} />
+                Campinas, BR
               </div>
               <p id="cidade-desc">
                 Nublado
               </p>
-            </div>
-            {/* Temperatura Principal */}
+            </div> {/* Fecha #cidade-desc*/}
+
+            {/* Temperatura principal */}
             <div id="temperatura-box">
               <div id="temp-valor">21°C</div>
               <div id="temp-sens">
                 Sensação Térmica: 21°C
               </div>
             </div>
-          </div>
-         
-         
-          
+
+            <div id="detalhes-box">
+              
+              <div className="detal-item">{/* Inicio Temperatura */}
+                <div className="detal-icone">
+                  <Thermometer />
+                </div>
+                <p className="detal-texto">
+                  Min/Max
+                </p>
+                <p className="detal-valor">
+                  23ºC/27ºC
+                </p>
+              </div>{/* Fim Temperatura */}
+
+              <div className="detal-item">{/* Inicio Umidade */}
+                <div className="detal-icone">
+                  <Droplet />
+                </div>
+                <p className="detal-texto">
+                  Umidade
+                </p>
+                <p className="detal-valor">
+                  12%
+                </p>
+              </div>{/* Fim Umidade */}
+
+              <div className="detal-item">{/* Inicio Vento */}
+                <div className="detal-icone">
+                  <Wind />
+                </div>
+                <p className="detal-texto">
+                  Vento
+                </p>
+                <p className="detal-valor">
+                  12 km/h
+                </p>
+              </div>{/* Fim Vento */}
+
+            </div>
+
+
+          </div> {/* Fecha #card-resultado */}
+
         </div>
       </div>
     </>
